@@ -17,6 +17,8 @@ import javafx.animation.Timeline;
 public class Game extends VBox{
 
     public Game(){
+        
+
         Timeline holdFor = new Timeline();
         KeyFrame HFAlarm = new KeyFrame(Duration.millis(1000), event -> promptUser());
         holdFor.getKeyFrames().add(HFAlarm);
@@ -28,6 +30,14 @@ public class Game extends VBox{
 
         setAlignment(Pos.CENTER);
 
+
+        Label pattern = new Label();
+
+        TextField answer = new TextField();
+
+        getChildren().addAll(pattern, answer);
+        
+
         
         // setting up scanner
         Scanner sc = new Scanner(System.in);
@@ -37,7 +47,7 @@ public class Game extends VBox{
         int mode = sc.nextInt();
         String garbString = sc.nextLine();
         int range = 26;
-        int timeMod;
+       
         int randNum;
         int points = 0;
         //responce in the form of a string or char
@@ -89,10 +99,10 @@ public class Game extends VBox{
             roundPoints = 0;
             correct = false;
             if(points >= 50){
-                timeMod = (int)(Math.random() * 900) + 100;
+             
             }
             else{
-                timeMod = 1000;
+                
             }
             randNum = (int)(Math.random() *range);
             // switch based on which mode was picked
@@ -100,11 +110,11 @@ public class Game extends VBox{
                 case 1:
                     correct = true;
                     achar.add((char) (randNum + 97));
-                    for(int i = 0; i < achar.size()  ; i++){
-                        System.out.print(achar.get(i));
-                    }
-                    Thread.sleep(timeMod);
-                    System.out.print("\033[2J\033[H");
+
+                    pattern.setText(achar.toString());
+
+                    holdFor.play();
+                    System.out.print(" ");
                     System.out.println("repeat: ");
                     responceC = sc.nextLine();
                    
@@ -125,8 +135,8 @@ public class Game extends VBox{
                         roundPoints -= 5;
                     }
 
-                    Thread.sleep(1000);
-                    System.out.print("\033[2J\033[H");
+                    userTime.play();
+                    System.out.print(" ");
 
 
                     break;
@@ -136,8 +146,8 @@ public class Game extends VBox{
                     for(int i = 0; i < achar.size()  ; i++){
                         System.out.print(achar.get(i));
                     }
-                    Thread.sleep(timeMod);
-                    System.out.print("\033[2J\033[H");
+                    holdFor.play();
+                    System.out.print(" ");
                     System.out.println("repeat: ");
                     responceC = sc.nextLine();
                 
@@ -158,14 +168,13 @@ public class Game extends VBox{
                         roundPoints -= 5;
                     }
 
-                    Thread.sleep(1000);
-                    System.out.print("\033[2J\033[H");
+                    
                     break;
                 case 3:
                     System.out.println(" + " + randNum);
                     sum += randNum;
-                    Thread.sleep(timeMod);
-                    System.out.print("\033[2J\033[H");
+                    holdFor.play();
+                    System.out.print(" ");
                     System.out.println("answer: ");
                     responceI = sc.nextInt();
                     if(responceI == sum){
@@ -177,7 +186,7 @@ public class Game extends VBox{
                     else{
                         roundPoints -= 5;
                     }
-                    System.out.print("\033[2J\033[H");
+                    System.out.print(" ");
                     break;
 
                 default:
@@ -194,13 +203,13 @@ public class Game extends VBox{
             }
             System.out.println("you got: " + roundPoints);
             System.out.println("total points: " + points);
-            Thread.sleep(1000);
-            System.out.print("\033[2J\033[H");
-
-            Thread.sleep(1000);
+            userTime.play();
+            System.out.print(" ");
+            userTime.play();
+        
         }
         if(points >= 100){
-            System.out.print("\033[2J\033[H");
+            System.out.print(" ");
             System.out.println("Victory");
             // nested loop to check if mode was a compatible one with the statement
             if(mode != 3){

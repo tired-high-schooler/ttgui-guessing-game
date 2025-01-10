@@ -15,10 +15,15 @@ public class Welcome extends VBox{
         TextField TBox = new TextField();
         Button start = new Button("start");
         Button quit = new Button("quit");
-        start.setOnAction(event -> System.out.println("start"));
+        start.setOnAction(event -> startGame());
         quit.setOnAction(event -> System.exit(0));
         
         getChildren().addAll(label, TBox, start, quit);
         
+    }
+    void startGame(){
+        Game layout = new Game();
+        Scene gscene = new Scene(layout, 600,500);
+        getScene().setRoot(layout);
     }
 }
